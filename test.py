@@ -31,7 +31,7 @@ lessonnumber = int(input("Please enter the lesson number: "))
 
 levellist= [0,1,2,3,5,10,15,30]
 
-df = pd.read_excel("test.xlsx")
+df = pd.read_excel("EN1.xlsx")
 
 book_list = []
 lesson_list = []
@@ -47,8 +47,8 @@ for i in range (0,len(df["book"])) :
         df.loc[i, "level"] = 0
         df.loc[i, "time"] = datetime.now().date()
 
-df.to_excel("test.xlsx", index=False)
-df = pd.read_excel("test.xlsx")
+df.to_excel("EN1.xlsx", index=False)
+df = pd.read_excel("EN1.xlsx")
 
 for i in range (0,len(df["book"])) :
     if df["book"].iloc[i] == booknumber :
@@ -79,7 +79,7 @@ for i in final_list :
                 r.dynamic_energy_threshold = False
                 r.adjust_for_ambient_noise(source2, duration=0.2)
                 try:
-                    audio2 = r.listen(source2,timeout=5)
+                    audio2 = r.listen(source2,timeout=10,phrase_time_limit=15)
                     MyText = r.recognize_google(audio2)
                     MyText = MyText.lower()
                 except:
@@ -110,14 +110,14 @@ for i in final_list :
         else:
             df.loc[i, "level"] = df["level"].loc[i]
         df.loc[i, "time"] = df.loc[i, "time"].to_pydatetime().date()+ timedelta(days=levellist[int(df["level"].loc[i])])
-        df.to_excel("test.xlsx", index=False)
+        df.to_excel("EN1.xlsx", index=False)
         print("That's true!")
         engine.say("That's true!")
         engine.runAndWait()
     else:
         df.loc[i, "level"]  = 0
         df.loc[i, "time"]= datetime.now().date()
-        df.to_excel("test.xlsx", index=False)
+        df.to_excel("EN1.xlsx", index=False)
         print("That's wrong!")
         engine.say("That's wrong!")
         engine.runAndWait()
